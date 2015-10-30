@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Testing times in Clojurescript</title>
+  <meta name="description" content="A presentation on tests in Clojurescript">
+  <meta name="author" content="David James Humphreys">
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="css/octicons.css"/>
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+  <link rel="stylesheet" href="css/mine.css"/>
+  <link rel="stylesheet" href="css/zenburn.css">
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
+  <!--[if lt IE 9]>
+  <script src="js/lib/html5shiv.js"></script><![endif]-->
+</head>
+
+<body>
+<div class="reveal">
+  <div class="slides">
+    <section id="title">
+      <h2>Testing times in Clojurescript</h2>
+      <p>
+        <small>David James Humphreys (Juxter) [<a href="http://twitter.com/davidjumphreys">@davidjhumphreys</a>]</small><br/>
+        <small><span class="octicon octicon-mark-github" style="font-family: 'octicons';"></span>/davidjameshumphreys/patterns-pitfalls-liberator/ [<a href="https://davidjameshumphreys.github.io/patterns-pitfalls-liberator/">slides</a>]</small>
+      </p>
+      <img src="images/juxt-w.png" width="200" style="border: 0; -webkit-box-shadow: none"/>
+    </section>
+    <section id="not-as-easy">
+      <h2>Not as easy</h2>
+      <p>In Clojure testing is easy</p>
+      <p>It's already built-in.
+      <pre><code data-language="shell">lein test</code></pre>
+      or
+      <pre><code data-language="shell">lein test :performance</code></pre></p>
+    </section>
+    <section id="why">
+      <h2>Why?</h2>
+      <table>
+        <thead>
+          <td>Language</td>
+          <td>Compiles</td>
+          <td>Runs</td>
+        </thead>
+          <tr>
+          <td>Clojure</td>
+          <td>JVM</td>
+          <td>JVM</td>
+        </tr>
+        <tr>
+          <td>Clojurescript</td>
+          <td>JVM</td>
+          <td>JS<sup>*</sup></td>
+        </tr>
+      </table>
+      <div class="fragment"><sup>*</sup>here's your problem...</div>
+    </section>
+    <section id="test-options">
+      <h2>Choose your path</h2>
+
+      <ul>
+        <li>lein-cljsbuild</li>
+        <li>speclj</li>
+        <li>doo</li>
+        <li>figwheel</li>
+        <li>devcards</li>
+      </ul>
+
+    </section>
+  </div>
+
+  <!--This is only visible after the title slide see code hideOnIndexSlide below-->
+  <div class='footer'>
+    <img src="images/juxt-w-small.png" width="180"/>
+  </div>
+</div>
+
+<script src="js/lib/head.min.js"></script>
+<script src="js/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+    mouseWheel: false,
+    transition: 'slide',
+
+    dependencies: [
+      {
+        src: './js/lib/classList.js', condition: function () {
+        return !document.body.classList;
+      }
+      },
+      {
+        src: './js/plugin/highlight/highlight.js', async: true, condition: function () {
+        return !!document.querySelector('pre code');
+      }, callback: function () {
+        hljs.configure({languages: ['clojure', 'shell']});
+        hljs.initHighlightingOnLoad();
+      }
+      },
+      {src: './js/plugin/zoom-js/zoom.js', async: true},
+      {src: './js/plugin/notes/notes.js', async: true}
+    ]
+  });
+
+  /** Hide the logo footer when on the start slide only.
+   * @param event the Reveal event
+   */
+  var hideOnIndexSlide = function(event){
+    console.log(event);
+    document.querySelector('.reveal .footer').style.display = ((event.indexh == 0) && (event.indexv == 0))?'none' : 'block';
+  };
+
+  Reveal.addEventListener('ready', hideOnIndexSlide);
+  Reveal.addEventListener('slidechanged', hideOnIndexSlide);
+</script>
+</body>
+</html>
