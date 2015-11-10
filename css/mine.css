@@ -12,3 +12,11 @@
     -webkit-box-shadow: none;
     border: 0;
 }
+
+.js {
+    background-color: rgba(255, 179, 8, 0.19);
+}
+
+a.gh {
+    font-family: 'octicons';
+}

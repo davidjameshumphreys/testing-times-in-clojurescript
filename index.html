@@ -33,50 +33,15 @@
       <h2>Testing times in Clojurescript</h2>
       <p>
         <small>David James Humphreys (Juxter) [<a href="http://twitter.com/davidjumphreys">@davidjhumphreys</a>]</small><br/>
-        <small><span class="octicon octicon-mark-github" style="font-family: 'octicons';"></span>/davidjameshumphreys/patterns-pitfalls-liberator/ [<a href="https://davidjameshumphreys.github.io/patterns-pitfalls-liberator/">slides</a>]</small>
+        <small><span class="octicon octicon-mark-github" style="font-family: 'octicons';"></span>/davidjameshumphreys/testing-times-in-clojurescript/ [<a href="https://davidjameshumphreys.github.io/testing-times-in-clojurescript/">slides</a>]</small>
       </p>
       <img src="images/juxt-w.png" width="200" style="border: 0; -webkit-box-shadow: none"/>
     </section>
-    <section id="not-as-easy">
-      <h2>Not as easy</h2>
-      <p>In Clojure testing is easy</p>
-      <p>It's already built-in.
-      <pre><code data-language="shell">lein test</code></pre>
-      or
-      <pre><code data-language="shell">lein test :performance</code></pre></p>
-    </section>
-    <section id="why">
-      <h2>Why?</h2>
-      <table>
-        <thead>
-          <td>Language</td>
-          <td>Compiles</td>
-          <td>Runs</td>
-        </thead>
-          <tr>
-          <td>Clojure</td>
-          <td>JVM</td>
-          <td>JVM</td>
-        </tr>
-        <tr>
-          <td>Clojurescript</td>
-          <td>JVM</td>
-          <td>JS<sup>*</sup></td>
-        </tr>
-      </table>
-      <div class="fragment"><sup>*</sup>here's your problem...</div>
-    </section>
-    <section id="test-options">
-      <h2>Choose your path</h2>
-
-      <ul>
-        <li>lein-cljsbuild</li>
-        <li>speclj</li>
-        <li>doo</li>
-        <li>figwheel</li>
-        <li>devcards</li>
-      </ul>
-
+    <section data-markdown="slides.md"
+             data-separator="^---$"
+             data-separator-vertical="^--$"
+             data-separator-notes="^Note:"
+             data-charset="UTF-8">
     </section>
   </div>
 
@@ -89,6 +54,33 @@
 <script src="js/lib/head.min.js"></script>
 <script src="js/reveal.js"></script>
 <script>
+  /** When refreshing the slides when editing I need to force Reveal to reload the current slide.
+   * TODO: this should not be a timeout, it should just be one event to listen to
+   */
+  var fixupWonkyReload = function () {
+    setTimeout(function () {
+      Reveal.navigateTo.apply(Reveal.getIndices());
+    }, 1000);
+  };
+
+  var githubLinks = function(){
+    var links = Array.prototype.slice.call(document.querySelectorAll('a'));
+    links.forEach(function(a){
+      if(a.href.match(/github.com/)){
+        var attr = a.getAttribute('class') || "";
+        a.setAttribute('class', attr + " octicon octicon-mark-github gh")
+      }
+    });
+  };
+
+  var fixup = function(){
+    fixupWonkyReload();
+    githubLinks();
+  };
+
+  var isMD = function () {
+    return !!document.querySelector('[data-markdown]');
+  };
   Reveal.initialize({
     controls: true,
     progress: true,
@@ -99,33 +91,37 @@
 
     dependencies: [
       {
-        src: './js/lib/classList.js', condition: function () {
-        return !document.body.classList;
-      }
+        src: './js/lib/classList.js',
+        condition: function () {return !document.body.classList;}
       },
       {
-        src: './js/plugin/highlight/highlight.js', async: true, condition: function () {
-        return !!document.querySelector('pre code');
-      }, callback: function () {
-        hljs.configure({languages: ['clojure', 'shell']});
-        hljs.initHighlightingOnLoad();
-      }
+        src: './js/plugin/highlight/highlight.js',
+        async: true,
+        condition: function () {return true;},
+        callback: function () {
+          hljs.configure({languages: ['clojure', 'bash']});
+          hljs.initHighlightingOnLoad();
+        }
       },
       {src: './js/plugin/zoom-js/zoom.js', async: true},
-      {src: './js/plugin/notes/notes.js', async: true}
+      {src: './js/plugin/notes/notes.js', async: true},
+      {src: './js/plugin/markdown/marked.js', condition: isMD, async: true},
+      {src: './js/plugin/markdown/markdown.js', condition: isMD, async: true,
+      callback:fixup}
     ]
   });
 
   /** Hide the logo footer when on the start slide only.
    * @param event the Reveal event
    */
-  var hideOnIndexSlide = function(event){
-    console.log(event);
-    document.querySelector('.reveal .footer').style.display = ((event.indexh == 0) && (event.indexv == 0))?'none' : 'block';
+  var hideOnIndexSlide = function (event) {
+    document.querySelector('.reveal .footer').style.display = ((event.indexh == 0) && (event.indexv == 0)) ? 'none' : 'block';
   };
 
   Reveal.addEventListener('ready', hideOnIndexSlide);
   Reveal.addEventListener('slidechanged', hideOnIndexSlide);
+
+//  Reveal.addEventListener('slidechanged', githubLinks)
 </script>
 </body>
 </html>

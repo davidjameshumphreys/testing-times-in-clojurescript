@@ -2,9 +2,9 @@
 
 Slides for a talk on testing in Clojurescript
 
-## Usage
+The directory `example-project` contains a Leiningen project with many different approaches to testing in Clojurescript.
 
-TODO: fix this.
+The [project README](./example-project/README.md) shows some of the different commands to run to try out the tests.
 
 ## License
 
