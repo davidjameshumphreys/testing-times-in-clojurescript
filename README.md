@@ -6,6 +6,7 @@ The directory `example-project` contains a Leiningen project with many different
 
 The [project README](./example-project/README.md) shows some of the different commands to run to try out the tests.
 
+See the slides at: [github.io](https://davidjameshumphreys.github.io/testing-times-in-clojurescript/)
 ## License
 
 Copyright © 2015 David Humphreys:
