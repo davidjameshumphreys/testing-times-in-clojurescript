@@ -7,13 +7,13 @@
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [org.clojure/clojurescript "1.7.122"]
                  ;; Speclj needs to be in deps AND plugins
-                 [speclj "3.3.0"]
+                 [speclj "3.3.1"]
 
                  [devcards "0.2.0-8"]]
 
   :plugins [[lein-cljsbuild "1.1.0"]
             [lein-doo "0.1.6-SNAPSHOT"]
-            [speclj "3.3.0"]
+            [speclj "3.3.1"]
             [lein-figwheel "0.4.1"]]
 
   :clean-targets ^{:protect false} ["resources/public/js/compiled"
@@ -51,12 +51,12 @@
                 :notify-command ["phantomjs" "bin/speclj" "resources/public/js/compiled/example_project.js"]}
 
                {:id           "devcards"
-                :source-paths ["src"]
+                :source-paths ["src" "dc-runner"]
                 :figwheel     {:devcards true}
                 :compiler     {:main                 "dc-testing.core"
                                :asset-path           "js/compiled/out"
                                :output-to            "resources/public/js/compiled/devcards_example_project.js"
-                               :output-dir           "resources/public/js/compiled/out"
+                               :output-dir           "resources/public/js/compiled/devcards"
                                :source-map-timestamp true}}
                {:id           "build3"
                 :source-paths ["src"]
@@ -64,7 +64,7 @@
                 :compiler     {:main                 "example-project.core"
                                :asset-path           "js/compiled/out"
                                :output-to            "resources/public/js/compiled/example_project.js"
-                               :output-dir           "resources/public/js/compiled/out"
+                               :output-dir           "resources/public/js/compiled/build3"
                                :source-map-timestamp true}}
                ]}
   :figwheel {:css-dirs ["resources/public/css"]})

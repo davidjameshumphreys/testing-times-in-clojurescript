@@ -5,5 +5,5 @@
 
 (describe "Buffalo Bill"
           (it "puts the lotion on"
-              (should true)))
+              (should false)))
 (run-specs)

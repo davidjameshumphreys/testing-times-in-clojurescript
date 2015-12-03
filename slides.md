@@ -238,6 +238,20 @@ You need the plugin & lib
 It has support for test selectors.
 
 ---
+## Speclj in Action ##
+
+```clojure
+(ns sample.core-spec
+  (:require-macros [speclj.core :refer [describe it should run-specs]])
+  (:require [speclj.core]))
+
+(describe "Mathematics"
+          (it "works"
+              (should (even? 2))))
+(run-specs)
+```
+
+---
 ## Test resources
 ```clojure
 (clojure.java.io/resource "super-test-data.json")
@@ -245,7 +259,6 @@ It has support for test selectors.
 
 Can't run that in Clojurescript!
 
-<!--TODO: verify the code -->
 ```clojure
 (defmacro slurp-data [res]
   (let [data (slurp (io/resource ~res))]
