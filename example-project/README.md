@@ -8,11 +8,11 @@ The project was created based on the figwheel-template: `lein new figwheel examp
 
 There are some different builds in the project and also some aliases set up to try the different builds.
 
-*"try-doo-phantom"
-*"try-speclj-auto"
-*"try-speclj"
-*"try-devcards"
-*"try-figwheel"
+* try-doo-phantom
+* try-speclj-auto
+* try-speclj
+* try-devcards
+* try-figwheel
 
 Each will start a different auto build using the build type.
 
